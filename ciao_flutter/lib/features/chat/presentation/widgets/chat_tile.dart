@@ -1,3 +1,4 @@
+import 'package:ciao_flutter/features/chat/presentation/widgets/conversation_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/conversation.dart';
@@ -9,9 +10,8 @@ class ChatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(conversation.title ?? 'No Title'),
-      subtitle: Text(conversation.lastMessage ?? 'No messages yet'),
+    return ConversationTile(
+      conversation: conversation,
       onTap: () {
         print('Go to conversation ${conversation.id}');
       },

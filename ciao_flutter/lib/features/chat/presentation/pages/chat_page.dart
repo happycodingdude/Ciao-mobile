@@ -24,7 +24,7 @@ class _ListChatPageState extends State<ChatPage> {
     super.initState();
 
     const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI2NmYyNzBjZjk0MjNmN2U1MjU3YTcxMWUiLCJleHAiOjE3NTI0Mjc3MDAsImlzcyI6Imh0dHBzOi8vY2hhdC5oYXBweWNvZGluZy5jbGljayIsImF1ZCI6Imh0dHBzOi8vY2hhdC5oYXBweWNvZGluZy5jbGljayJ9.9QbQPBgyDR0BehtuKsSmVU1VexnFQKg_ANyIckNLJdw'; // Thường lấy từ secure storage hoặc provider
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI2NmYyNzBjZjk0MjNmN2U1MjU3YTcxMWUiLCJleHAiOjE3NTI2ODQwODEsImlzcyI6Imh0dHBzOi8vY2hhdC5oYXBweWNvZGluZy5jbGljayIsImF1ZCI6Imh0dHBzOi8vY2hhdC5oYXBweWNvZGluZy5jbGljayJ9.Ea_WPE5gQdvfseaexqb-Jf6YLk_HwXvm9aQiUl3sXUI'; // Thường lấy từ secure storage hoặc provider
     final apiClient = ApiClient(token: token);
     _repository = ChatRepository(apiClient: apiClient);
 
