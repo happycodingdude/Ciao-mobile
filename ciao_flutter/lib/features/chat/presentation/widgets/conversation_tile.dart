@@ -1,11 +1,27 @@
 import 'package:ciao_flutter/data/models/conversation.dart';
+import 'package:ciao_flutter/data/models/pagination_message.dart';
+import 'package:ciao_flutter/data/repositories/chat_repository.dart';
+import 'package:ciao_flutter/features/chat/presentation/pages/message_page.dart';
 import 'package:flutter/material.dart';
 
 class ConversationTile extends StatelessWidget {
+  final ChatRepository repository;
   final Conversation conversation;
-  final VoidCallback? onTap;
 
-  const ConversationTile({super.key, required this.conversation, this.onTap});
+  const ConversationTile({
+    super.key,
+    required this.repository,
+    required this.conversation,
+  });
+
+  Future<PaginationMessage> getMessages() async {
+    try {
+      return await repository.fetchMessages(conversation.id);
+    } catch (e) {
+      print('Error: $e');
+      rethrow;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +33,44 @@ class ConversationTile extends StatelessWidget {
               .name;
 
     return InkWell(
-      onTap: onTap,
+      onTap: () async {
+        print('Go to conversation ${conversation.id}');
+
+        // Hiển thị loading dialog
+        // showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (_) => const Center(child: CircularProgressIndicator()),
+        // );
+
+        try {
+          // Fetch messages
+          // final messages = await getMessages();
+
+          // Đóng loading dialog
+          // Navigator.pop(context);
+
+          // Navigate sang MessagePage
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => MessagePage(
+                currentUserId: '66f270cf9423f7e5257a711e',
+                repository: repository,
+                conversationId: conversation.id,
+              ),
+            ),
+          );
+        } catch (e) {
+          // Đóng loading dialog
+          // Navigator.pop(context);
+
+          // Show error snackbar
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Failed to load messages')));
+        }
+      },
+
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Row(

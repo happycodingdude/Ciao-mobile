@@ -1,9 +1,9 @@
 import 'package:ciao_flutter/data/network/api_client.dart';
+import 'package:ciao_flutter/features/chat/presentation/widgets/conversation_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/conversation.dart';
 import '../../../../data/repositories/chat_repository.dart';
-import '../widgets/chat_tile.dart';
 
 class ChatPage extends StatefulWidget {
   final String title;
@@ -24,7 +24,7 @@ class _ListChatPageState extends State<ChatPage> {
     super.initState();
 
     const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI2NmYyNzBjZjk0MjNmN2U1MjU3YTcxMWUiLCJleHAiOjE3NTI2ODQwODEsImlzcyI6Imh0dHBzOi8vY2hhdC5oYXBweWNvZGluZy5jbGljayIsImF1ZCI6Imh0dHBzOi8vY2hhdC5oYXBweWNvZGluZy5jbGljayJ9.Ea_WPE5gQdvfseaexqb-Jf6YLk_HwXvm9aQiUl3sXUI'; // Thường lấy từ secure storage hoặc provider
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI2NmYyNzBjZjk0MjNmN2U1MjU3YTcxMWUiLCJleHAiOjE3NTQzMjI3MzcsImlzcyI6Imh0dHBzOi8vY2hhdC5oYXBweWNvZGluZy5jbGljayIsImF1ZCI6Imh0dHBzOi8vY2hhdC5oYXBweWNvZGluZy5jbGljayJ9.VtzzyWax5Lj-YexhzltcH-BKuxWpaJLPegmdMVh1phc'; // Thường lấy từ secure storage hoặc provider
     final apiClient = ApiClient(token: token);
     _repository = ChatRepository(apiClient: apiClient);
 
@@ -53,22 +53,12 @@ class _ListChatPageState extends State<ChatPage> {
           : ListView.builder(
               itemCount: conversations.length,
               itemBuilder: (context, index) {
-                return ChatTile(conversation: conversations[index]);
+                return ConversationTile(
+                  repository: _repository,
+                  conversation: conversations[index],
+                );
               },
             ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const [
-      //     BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Chat'),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.settings),
-      //       label: 'Settings',
-      //     ),
-      //   ],
-      //   currentIndex: 0,
-      //   onTap: (index) {
-      //     // Xử lý điều hướng
-      //   },
-      // ),
       bottomNavigationBar: Container(
         height: 60,
         color: Colors.grey[200],
